@@ -45,4 +45,19 @@ describe("Greeting component", () => {
     const paragraphElement = screen.getByText("Changed", { exact: false });
     expect(paragraphElement).toBeInTheDocument();
   });
+
+  test("doesn't render if the button is clicked", () => {
+    //* Arrange
+    render(<Greeting />);
+
+    //* Act
+    const buttonElement = screen.getByRole("button");
+    userEvent.click(buttonElement);
+
+    //* Assert
+    const paragraphElement = screen.queryByText("it's good to see you", {
+      exact: false,
+    });
+    expect(paragraphElement).not.toBeInTheDocument();
+  });
 });
